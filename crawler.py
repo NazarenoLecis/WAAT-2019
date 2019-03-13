@@ -1,6 +1,7 @@
 import urllib2
 from urlparse import urlparse, urljoin
 
+import requests
 from bs4 import BeautifulSoup
 
 
@@ -15,7 +16,7 @@ def crawler(url, depth=0, maxDepth=2, web=[]):
     if depth >= maxDepth:
         return web
     try:
-        page = urllib2.urlopen(url.geturl()).read()
+        page = requests.get(url.geturl()).text
     except Exception:
         return web
     soup = BeautifulSoup(page, "html.parser")
