@@ -11,12 +11,13 @@ class Page(object):
 
 
 def crawler(url, iteration=0, maxIterations=2, web=[]):
-    if iteration == maxIterations:
+    print iteration, url.geturl()
+    if iteration >= maxIterations:
         return web
     try:
         page = urllib2.urlopen(url.geturl()).read()
     except Exception:
-        return
+        return web
     soup = BeautifulSoup(page, "html.parser")
     links = []
     for anchor in soup.findAll('a', href=True):
