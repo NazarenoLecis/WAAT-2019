@@ -10,9 +10,9 @@ class Page(object):
         self.address, self.links = address, links
 
 
-def crawler(url, iteration=0, maxIterations=2, web=[]):
-    print iteration, url.geturl()
-    if iteration >= maxIterations:
+def crawler(url, depth=0, maxDepth=2, web=[]):
+    print depth, url.geturl()
+    if depth >= maxDepth:
         return web
     try:
         page = urllib2.urlopen(url.geturl()).read()
@@ -30,5 +30,5 @@ def crawler(url, iteration=0, maxIterations=2, web=[]):
     links = filter(lambda l: l not in visited, links)
     web += [Page(url.geturl(), links)]
     for link in links:
-        crawler(urlparse(link), iteration + 1, maxIterations, web)
+        crawler(urlparse(link), depth + 1, maxDepth, web)
     return web
