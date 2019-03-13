@@ -3,13 +3,14 @@
 
 ## Esercitazione 4
 
-Sfruttare la libreria BeautifulSoup per implementare una versione semplificata di un crawler e del PageRank
+Sfruttare la libreria BeautifulSoup e NetworkX per implementare una versione semplificata di un crawler e del PageRank
 
 
 ### Esercizio 1
 
-La prima pagina web mai pubblicata si trova all'indirizzo *http://info.cern.ch/hypertext/WWW/TheProject.html*, utilizzare
-Beautifulsoup per fare il crawling del web _primordiale_.
+La prima pagina web mai pubblicata si trova all'indirizzo *http://info.cern.ch/hypertext/WWW/TheProject.html*.
+Utilizzare Beautifulsoup per fare il crawling del web _primordiale_, utilizzando una ricerca di tipo Breadth-First con una profondità
+massima pari a 2. Ottenere un elenco di pagine a cui sono associate le pagine collegate.
 
 ```python
 
@@ -21,8 +22,7 @@ soup = BeautifulSoup(page, "html.parser")
 
 ### Esercizio 2
 
-Partendo dalla pagina iniziale del NewYork Times *https://www.nytimes.com/* recuperare 100 link e calcolare il PageRank 
-delle pagine trovate utilizzando questi 100 link (ottenendo quindi una rete con questi 100 link). 
+Partendo dalla pagina iniziale *http://info.cern.ch/hypertext/WWW/TheProject.html* recuperare la _rete_ ottenuta nell'esercizio precedente per calcolare il PageRank delle pagine. 
 
 Per calcolare il PageRank utlizzare la libreria *networkx*. Ad esempio calcolando il PageRank della seguente rete:
 ![alt text](imgs/web-graph2.gif "Esempio page rank")
@@ -45,9 +45,7 @@ Esempio:
         ('D', 'A'),
         ('C', 'B'),
     ])
-    pos = nx.spring_layout(web)
-    nx.draw_networkx_labels(web, pos)
-    nx.draw(web)
+    nx.draw(web, with_labels=True)
     plt.show()
     print nx.pagerank(web)
 ```
