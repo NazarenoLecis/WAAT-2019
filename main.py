@@ -1,12 +1,13 @@
-import networkx as nx
-import pylab as plt
 from urlparse import urlparse
 
-from crawler import crawler
+import networkx as nx
+import pylab as plt
+
+from crawler import Crawler
 
 if __name__ == '__main__':
     url = urlparse('http://info.cern.ch/hypertext/WWW/TheProject.html')
-    web = crawler(url)
+    web = Crawler(url).crawlePages(url) # or web = crawler(url) if using functions
     webGraph = nx.DiGraph()
     edges = []
     for page in web:
@@ -18,3 +19,4 @@ if __name__ == '__main__':
     pageRank = nx.pagerank(webGraph)
     for page in web:
         print page.address, pageRank[hash(page.address)]
+    print web[0].text
