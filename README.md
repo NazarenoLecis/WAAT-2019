@@ -1,52 +1,39 @@
 # WAAT-2019
 Repository del Corso WAAT AA-2018-19
 
-## Installazione
+## Setup NLTK
 
 
-1. da _Pycharm_ aprire il menù *VCS*->*Checkout From Version Control*->*GitHub*
-2. selezionare _Auth Type_->*password* e inserire le credenziali del vostro account su GitHub 
-3. inserire *https://github.com/marcoortu/WAAT-2019*  nel campo *Git Reposistory Url*
-
-oppure da terminale (per utenti esperti):
-
-```git
-
-    git clone https://github.com/marcoortu/WAAT-2019
+1. Aprire la console di Python e digitare i seguenti comandi:
     
-```
+    ```python
+    
+        import nltk
+        print(nltk.__version__) # per verificare la versione
+        nltk.download() # o nltk.download_gui() in caso di errore
+    ```
 
-Scaricato il repository, assicurarsi di avere creato il *VirtualEnv* per il progetto.
-File -> Settings -> Project Interpreter.
-- Premere sull'ingranaggio a destra del campo per selezionare il _Python Interpreter_.
-- Selezionare _Add Local_.
-- *NB* Assicurarsi in inserire la cartella corretta nel campo _Location_ e premere invio.
+2. Scaricare la collection _book_ dalla GUI, in caso non si riesca a visualizzare la GUI scaricare direttamente 
+la collection con il seguente comando:
 
+    ```python
+    
+        import nltk
+        nltk.download('book') 
+    ```
+    
+## Esercizio 1
 
-oppure da terminale (per utenti esperti):
-- Aprire il terminale di _PyCharm_ ed eseguire il seguente comando.
+Utilizzare i testi di Grazia Deledda e Luigi Pirandello per confrontare la _concordance_ e la _similarity_
+della parola *donna*. I testi si trovano nella cartella _corpora_.
 
-```bash
-    virtualenv venv
-    source venv/bin/activate
-    pip install -r requirements.txt
-```
-Il file requirements.txt contiene la lista di tutte le librerie che serviranno durante le
-esercitazioni come ad esempio *nltk*, *numpy* etc.
+## Esercizio 2
 
+Utilizzare i testi di Grazia Deledda e Luigi Pirandello per confrontare la 30 parole più comunemente 
+utilizzate dai due autori di lunghezza maggiore a 4.
 
-## Esercitazioni
+## Esercizio 3
 
-Le esercitazioni verranno inserite durante il corso come nuovi *branch* in questo repository.
-Utilizzando il *checkout* ci si può spostare nel *branch* di una particolare esercitazione.
-Per effettuare il *checkout* di un *branch* su _PyCharm_ click sul menù _Git_ in basso a destra e selezionare il branch tra quelli disponibili. I _Local Branches_ sono la lista dei branch locali di cui si è già fatto il checkout mentre i _Remote Branches_ sono tutti i _branch_ presenti nel repository remoto.
-
-- Per i _Local Branches_ selezionare l'opzione _Checkout_
-- Per i _Remote Brances_ selezionare l'opzione _Checkout as new branch_
-
-oppure da terminale (per utenti esperti):
-- Dal terminale di _Pycharm_ digitare il seguente comando per spostarsi nel *branch* della prima esercitazione.
-
-```git
-    git checkout 01-esercitazione
-```
+Creare un corpus ad hoc coi i testi dei due autori italiani suddivisi per categoria. Utilizzare questo
+corspus per ottenete una distribuzione di frequenza condizionale per esaminare le differenze nelle lunghezze 
+delle parole per autore.
