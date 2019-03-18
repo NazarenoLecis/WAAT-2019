@@ -29,8 +29,8 @@ della parola *donna*. I testi si trovano nella cartella _corpora_.
 
 ## Esercizio 2
 
-Utilizzare i testi di Grazia Deledda e Luigi Pirandello per confrontare la 30 parole più comunemente 
-utilizzate dai due autori di lunghezza maggiore a 4.
+Utilizzare i testi di Grazia Deledda e Luigi Pirandello per confrontare la 30 parole, di lunghezza maggiore a 4, più comunemente 
+utilizzate dai due autori.
 
 ## Esercizio 3
 
