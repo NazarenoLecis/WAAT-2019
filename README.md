@@ -34,6 +34,5 @@ utilizzate dai due autori. Le stopwords vanno filtrate prima di effettuare il ca
 
 ## Esercizio 3
 
-Creare un corpus ad hoc coi i testi dei due autori italiani suddivisi per categoria. Utilizzare questo
-corspus per ottenete una distribuzione di frequenza condizionale per esaminare le differenze nelle lunghezze 
-delle parole per autore.
+Ottenete una distribuzione di frequenza condizionale (per autore) per esaminare le differenze nelle lunghezze 
+delle parole utilizzare dai due autori italiani.
