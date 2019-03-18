@@ -13,9 +13,10 @@ Utilizzare Beautifulsoup per fare il crawling del web _primordiale_, utilizzando
 massima pari a 2. Ottenere un elenco di pagine a cui sono associate le pagine collegate.
 
 ```python
-
+import requests
 from bs4 import BeautifulSoup
-page = urllib2.urlopen('http://info.cern.ch/hypertext/WWW/TheProject.html').read()
+
+page = requests.get('http://info.cern.ch/hypertext/WWW/TheProject.html').text
 soup = BeautifulSoup(page, "html.parser")
 
 ```
