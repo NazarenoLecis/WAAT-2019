@@ -156,7 +156,7 @@ def retweetHistogram(query, count=10):
         for tweet in tweets
         if hasattr(tweet, 'retweeted_status')
     ]
-    counts = [count for coun, _, _ in retweets]
+    counts = [count for count, _, _ in retweets]
     plt.hist(counts)
     plt.title("Retweets")
     plt.xlabel("Bins (number of times retweeted)")
@@ -166,14 +166,17 @@ def retweetHistogram(query, count=10):
 
 def retweetFrequency(query, count=10):
     tweets = tweepy.Cursor(twitterAPI.search, q=query).items(count)
-    retweets = [
-        (tweet.retweet_count,
-         tweet.retweeted_status.user.screen_name,
-         tweet.text
-         )
-        for tweet in tweets
-        if hasattr(tweet, 'retweeted_status')
-    ]
+    uniqueTweets = set()
+    retweets = []
+    for tweet in tweets:
+        if hasattr(tweet, 'retweeted_status'):
+            if tweet.text not in uniqueTweets:
+                retweets += [
+                    (tweet.retweet_count,
+                     tweet.retweeted_status.user.screen_name,
+                     tweet.text
+                     )]
+                uniqueTweets.add(tweet.text)
     prettyPrint = PrettyTable(field_names=['Count', 'Screen', 'Text'])
     [prettyPrint.add_row(row) for row in sorted(retweets, reverse=True)[:5]]
     prettyPrint.max_width['Text'] = 50
@@ -183,9 +186,9 @@ def retweetFrequency(query, count=10):
 
 if __name__ == '__main__':
     query = "donald trump"
-    count = 1000
+    count = 100
     # sentimentAnalysisExample(count)
     # countingTweetObjects(query, count)
     # tweetsWordFrequency(query, count)
-    # retweetFrequency(query, count)
+    retweetFrequency(query, count)
     # retweetHistogram(query, count)
