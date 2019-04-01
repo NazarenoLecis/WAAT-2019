@@ -1,1 +1,11 @@
 numpy
+scipy
+nltk
+matplotlib
+beautifulsoup4
+scikit-learn
+networkx
+textblob
+tweepy
+prettytable
+pandas
