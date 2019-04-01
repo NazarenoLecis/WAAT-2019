@@ -1,17 +1,14 @@
 import re
 from collections import Counter
 
+import matplotlib.pyplot as plt
 import tweepy
 from nltk import word_tokenize
 from prettytable import PrettyTable
-from sklearn.decomposition import LatentDirichletAllocation
-from sklearn.feature_extraction.text import CountVectorizer
-from tweepy import OAuthHandler
 from textblob import TextBlob
+from tweepy import OAuthHandler
 
 from credentials import TWITTER_ACCESS_TOKEN, TWITTER_CONSUMER_SECRET, TWITTER_ACCESS_TOKEN_SECRET, TWITTER_CONSUMER_KEY
-
-import matplotlib.pyplot as plt
 
 auth = OAuthHandler(
     TWITTER_CONSUMER_KEY,
@@ -56,9 +53,9 @@ def getTweetsSentiment(query, count=10):
             parsed_tweet = {}
             # get the tweet text
             parsed_tweet['text'] = tweet.text
-            # otteniamo il sentiment associato a quel tweet
+            # get the sentiment for the tweet's text
             parsed_tweet['sentiment'] = getTweetSentiment(tweet.text)
-            # agginugiamo il tweet alla lista assicurandoci che non sia un retweet
+            # add the tweet to our list and avoid retweets
             if tweet.retweet_count > 0:
                 if parsed_tweet not in tweets:
                     tweets.append(parsed_tweet)
@@ -69,20 +66,20 @@ def getTweetsSentiment(query, count=10):
         print("Error : %s" % str(e))
 
 
-def sentimentAnalysisExample():
-    tweets = getTweetsSentiment("blockchain", count=100)
+def sentimentAnalysisExample(count=100):
+    tweets = getTweetsSentiment("blockchain", count=count)
     print len(tweets)
     ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive']
-    # percentuale di tweet positivi
+    # percentage of positive tweets
     print("Positive tweets percentage: {} %".format(100 * len(ptweets) / len(tweets)))
     ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative']
-    # percentuale di tweet negativi
+    # percentage of negative tweets
     print("Negative tweets percentage: {} %".format(100 * len(ntweets) / len(tweets)))
-    # stampiamo primi 5 positivi
+    # print the first five positive tweets
     print("\n\nPositive tweets:")
     for tweet in ptweets[:5]:
         print(tweet['text'])
-    # stampiamo o primi 5 negativi
+    # print the first five negative tweets
     print("\n\nNegative tweets:")
     for tweet in ntweets[:5]:
         print(tweet['text'])
@@ -94,11 +91,11 @@ def getTweets(query, count=10):
     '''
     tweets = []
     try:
-        # chiama la twitter api per cercare i tweet
+        # calls the API to obtain tweets
         fetchedTweets = tweepy.Cursor(twitterAPI.search, q=query).items(count)
-        # parsing dei tweet ottenuti
+        # parsing the tweets
         for tweet in fetchedTweets:
-            # agginugiamo il tweet alla lista assicurandoci che non sia un retweet
+            # add the tweet to our list and avoid retweets
             if tweet.retweet_count > 0:
                 if tweet.text not in tweets:
                     tweets.append(tweet.text)
@@ -107,28 +104,6 @@ def getTweets(query, count=10):
         return tweets
     except Exception as e:
         print("Error : %s" % str(e))
-
-
-def topicModeling(query, count=100):
-    tweets = getTweets(query, count)
-    tf_vectorizer = CountVectorizer(
-        max_df=0.95,
-        min_df=2,
-        max_features=1000,
-        stop_words='english'
-    )
-    tf = tf_vectorizer.fit_transform(tweets)
-    tf_feature_names = tf_vectorizer.get_feature_names()
-    no_topics = 10
-    lda = LatentDirichletAllocation(n_components=no_topics,
-                                    max_iter=5,
-                                    learning_method='online',
-                                    learning_offset=50.,
-                                    random_state=0).fit(tf)
-    for topic_idx, topic in enumerate(lda.components_):
-        print "Topic %d:" % (topic_idx)
-        print " ".join([tf_feature_names[i]
-                        for i in topic.argsort()[:-10 - 1:-1]])
 
 
 def countingTweetObjects(query, count):
@@ -208,10 +183,9 @@ def retweetFrequency(query, count=10):
 
 if __name__ == '__main__':
     query = "donald trump"
-    count = 100
-    sentimentAnalysisExample()
-    topicModeling(query, count)
-    countingTweetObjects(query, count)
-    tweetsWordFrequency(query, count)
-    retweetFrequency(query, count)
-    retweetHistogram(query, count)
+    count = 1000
+    # sentimentAnalysisExample(count)
+    # countingTweetObjects(query, count)
+    # tweetsWordFrequency(query, count)
+    # retweetFrequency(query, count)
+    # retweetHistogram(query, count)
