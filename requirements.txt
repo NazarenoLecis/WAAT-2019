@@ -6,6 +6,8 @@ beautifulsoup4
 scikit-learn
 networkx
 textblob
-tweepy
 prettytable
 pandas
+tweepy
+git+https://github.com/mobolic/facebook-sdk.git#egg=facebook-sdk
+python-linkedin-v2
