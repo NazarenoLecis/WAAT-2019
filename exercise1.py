@@ -59,7 +59,7 @@ def dumpTweets(query, count):
 
 
 if __name__ == '__main__':
-    filePath = 'data/tweets_donald_trump.csv'  # dumpTweets(query="donald trump", count=2000) #
+    filePath = dumpTweets(query="donald trump", count=2000) #
     tweets = [tweet['text'] for tweet in csv2Dict(filePath)]
     print "Found %d tweets" % len(tweets)
     tweetsSentiment = [{'text': tweet, 'sentiment': getTweetSentiment(tweet)}
