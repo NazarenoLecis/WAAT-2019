@@ -1,9 +1,8 @@
-import re
 from collections import Counter
 
 import matplotlib.pyplot as plt
 import tweepy
-from nltk import word_tokenize
+from nltk import word_tokenize, re
 from prettytable import PrettyTable
 from textblob import TextBlob
 from tweepy import OAuthHandler
@@ -23,7 +22,7 @@ def cleanText(tweet):
     '''
     Regular expression that removes links and special characters from tweet.
     '''
-    return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t]) | (\w+:\ / \ / \S+)", " ", tweet).split())
+    return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(https?\S+)", " ", tweet).split())
 
 
 def getTweetSentiment(tweet):
@@ -31,7 +30,9 @@ def getTweetSentiment(tweet):
     Calculate the sentiment using TextBlob module
     TextBlog
     '''
-    analysis = TextBlob(cleanText(tweet))
+    text = cleanText(tweet)
+    print text
+    analysis = TextBlob(text)
     if analysis.sentiment.polarity > 0:
         return 'positive'
     elif analysis.sentiment.polarity == 0:
@@ -66,13 +67,15 @@ def getTweetsSentiment(query, count=10):
         print("Error : %s" % str(e))
 
 
-def sentimentAnalysisExample(count=100):
-    tweets = getTweetsSentiment("blockchain", count=count)
+def sentimentAnalysisExample(query="blockchain", count=100):
+    tweets = getTweetsSentiment(query, count=count)
     print len(tweets)
-    ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive']
+    ptweets = [tweet for tweet in tweets
+               if tweet['sentiment'] == 'positive']
     # percentage of positive tweets
     print("Positive tweets percentage: {} %".format(100 * len(ptweets) / len(tweets)))
-    ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative']
+    ntweets = [tweet for tweet in tweets
+               if tweet['sentiment'] == 'negative']
     # percentage of negative tweets
     print("Negative tweets percentage: {} %".format(100 * len(ntweets) / len(tweets)))
     # print the first five positive tweets
@@ -187,8 +190,8 @@ def retweetFrequency(query, count=10):
 if __name__ == '__main__':
     query = "donald trump"
     count = 100
-    # sentimentAnalysisExample(count)
-    # countingTweetObjects(query, count)
-    # tweetsWordFrequency(query, count)
+    sentimentAnalysisExample(query, count)
+    countingTweetObjects(query, count)
+    tweetsWordFrequency(query, count)
     retweetFrequency(query, count)
-    # retweetHistogram(query, count)
+    retweetHistogram(query, count)
