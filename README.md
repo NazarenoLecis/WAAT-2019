@@ -24,6 +24,6 @@ Clusterizzare i colleghi delle propria rete LinkedIn in base alla "job position"
 
 1. Utilizzare il file csv delle connections scaricato da LinkedIn.
 2. Calcolare la matrice TF-IDF utilizzando il TF-IDF vectorizer.
-3. Utilizzare il KNN per clusterizzare le "Job Positions".
+3. Utilizzare il KMeans per clusterizzare le "Job Positions".
 4. In base alla vostra "Job Positions" calcolate il cluster a cui appartenete. 
 
