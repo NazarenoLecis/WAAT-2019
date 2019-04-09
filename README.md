@@ -26,8 +26,9 @@ Clusterizzare i colleghi delle propria rete LinkedIn in base alla "job position"
 2. Calcolare la matrice TF-IDF utilizzando il TF-IDF vectorizer.
 3. Utilizzare il KMeans per clusterizzare le "Job Positions".
 4. Utilizzando il metodo "Elbow" ottenere una stima del k migliore.
-4. In base alla vostra "Job Positions" calcolate il cluster a cui appartenete. 
-5. Utilizzare una decomposizione PCA o MSD per visualizzare i clusters ottenuti:
+5. In base alla vostra "Job Positions" calcolate il cluster a cui appartenete. 
+6. Calcolare la distribuzione di campioni per cluster utilizzando PrettyTable per visualizzare i dati.
+7. Utilizzare una decomposizione PCA o MDS per visualizzare i clusters ottenuti:
     ```python
     from sklearn.manifold import MDS
     from sklearn.decomposition import PCA
