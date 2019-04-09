@@ -8,13 +8,16 @@ import pandas as pd
 from nltk import word_tokenize
 from prettytable import PrettyTable
 from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.manifold import MDS
 from sklearn.metrics.pairwise import cosine_similarity
 
 
 def randomColor():
-    return '#%02X%02X%02X' % (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+    return '#%02X%02X%02X' % (random.randint(0, 255),
+                              random.randint(0, 255),
+                              random.randint(0, 255))
 
 
 def plotConnectionGraph(tfidf_matrix, clusters, positions):
@@ -74,7 +77,9 @@ def clusterDistribution(clusters):
         else:
             clusterDict[c] = 1
     prettyTable = PrettyTable(field_names=['Cluster', 'Count'])
-    sortedClusters = sorted(clusterDict.items(), key=operator.itemgetter(1), reverse=True)
+    sortedClusters = sorted(clusterDict.items(),
+                            key=operator.itemgetter(1),
+                            reverse=True)
     for t in sortedClusters:
         prettyTable.add_row(t)
     print prettyTable
